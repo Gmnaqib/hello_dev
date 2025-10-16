@@ -15,27 +15,34 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin administration pages are defined here.
+ * Capability definitions for the Hello Dev block are defined here.
  *
  * @package     block_hello_dev
- * @category    admin
+ * @category    access
  * @copyright   2025 Gumilar <gumilarmn@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-if ($hassiteconfig) {
-    $settings = new admin_settingpage('block_hello_dev_settings', get_string('pluginname', 'block_hello_dev'));
+$capabilities = [
+    'block/hello_dev:addinstance' => [
+        'riskbitmask' => RISK_SPAM | RISK_XSS,
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_BLOCK,
+        'archetypes' => [
+            'editingteacher' => CAP_ALLOW,
+            'manager' => CAP_ALLOW
+        ],
+        'clonepermissionsfrom' => 'moodle/site:manageblocks'
+    ],
 
-    if ($ADMIN->fulltree) {
-        $settings->add(new admin_setting_configtext(
-            'block_hello_dev/foo',
-            get_string('labelfoo', 'block_hello_dev'),
-            get_string('descfoo', 'block_hello_dev'),
-            'default value'
-        ));
-    }
-
-    $ADMIN->add('blocksettings', $settings);
-}
+    'block/hello_dev:myaddinstance' => [
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            'user' => CAP_ALLOW
+        ],
+        'clonepermissionsfrom' => 'moodle/my:manageblocks'
+    ],
+];

@@ -21,12 +21,14 @@
  * @copyright   2025 Gumilar <gumilarmn@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class block_hello_dev extends block_base {
+class block_hello_dev extends block_base
+{
 
     /**
      * Initializes class member variables.
      */
-    public function init() {
+    public function init()
+    {
         // Needed by Moodle to differentiate between blocks.
         $this->title = get_string('pluginname', 'block_hello_dev');
     }
@@ -36,7 +38,8 @@ class block_hello_dev extends block_base {
      *
      * @return stdClass The block contents.
      */
-    public function get_content() {
+    public function get_content()
+    {
 
         if ($this->content !== null) {
             return $this->content;
@@ -53,10 +56,9 @@ class block_hello_dev extends block_base {
         $this->content->footer = '';
 
         if (!empty($this->config->text)) {
-            $this->content->text = $this->config->text;
+            $this->content->text = format_text($this->config->text, FORMAT_HTML);
         } else {
-            $text = 'Please define the content text in /blocks/hello_dev/block_hello_dev.php.';
-            $this->content->text = $text;
+            $this->content->text = get_string('blockstring', 'block_hello_dev');
         }
 
         return $this->content;
@@ -67,7 +69,8 @@ class block_hello_dev extends block_base {
      *
      * The function is called immediately after init().
      */
-    public function specialization() {
+    public function specialization()
+    {
 
         // Load user defined title and make sure it's never empty.
         if (empty($this->config->title)) {
@@ -82,7 +85,8 @@ class block_hello_dev extends block_base {
      *
      * @return bool True if the global configuration is enabled.
      */
-    public function has_config() {
+    public function has_config()
+    {
         return true;
     }
 
@@ -91,8 +95,29 @@ class block_hello_dev extends block_base {
      *
      * @return string[] Array of pages and permissions.
      */
-    public function applicable_formats() {
+    public function applicable_formats()
+    {
         return [
+            'all' => true,
+            'site' => true,
+            'site-index' => true,
+            'course-view' => true,
+            'course-view-social' => false,
+            'course-view-topics' => true,
+            'course-view-weeks' => true,
+            'mod' => false,
+            'mod-quiz' => false,
+            'my' => true,
         ];
+    }
+
+    /**
+     * Allow the block to have a configuration page.
+     *
+     * @return boolean
+     */
+    public function instance_allow_config()
+    {
+        return true;
     }
 }

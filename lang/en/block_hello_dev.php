@@ -25,4 +25,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Hallow';
+$string['pluginname'] = 'Hello Dev Block';
+$string['hello_dev'] = 'Hello Dev Block';
+$string['hello_dev:addinstance'] = 'Add a new Hello Dev block';
+$string['hello_dev:myaddinstance'] = 'Add a new Hello Dev block to the My Moodle page';
+$string['blocktitle'] = 'Block title';
+$string['blockstring'] = 'Hello! This is the Hello Dev block. Configure me in the block settings.';
+$string['descconfig'] = 'Description of the config section';
+$string['descfoo'] = 'Config description';
+$string['headerconfig'] = 'Config section header';
+$string['labelfoo'] = 'Config label';
