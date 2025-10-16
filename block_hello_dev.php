@@ -64,6 +64,32 @@ class block_hello_dev extends block_base
         return $this->content;
     }
 
+
+    public function get_content_for_mobile()
+    {
+        // Jangan tampilkan jika instance kosong
+        if (empty($this->instance)) {
+            return null;
+        }
+
+        $content = new \stdClass();
+        // Set priority. Angka yang lebih rendah berarti prioritas lebih tinggi.
+        $content->priority = 50;
+        // Kelas CSS untuk styling (gunakan nama block)
+        $content->classname = 'block_hello_dev';
+
+        // Dapatkan renderer seluler untuk block ini.
+        $renderer = $this->page->get_renderer('block_hello_dev', 'mobile');
+
+        // Buat instance dari output class mobile.php dan kirimkan konfigurasi block.
+        $outputclass = new \block_hello_dev\output\mobile($this->config);
+
+        // Render template 'mobile.mustache' menggunakan data dari output class.
+        $content->html = $renderer->render_from_template('block_hello_dev/mobile', $outputclass);
+
+        return $content;
+    }
+
     /**
      * Defines configuration data.
      *
